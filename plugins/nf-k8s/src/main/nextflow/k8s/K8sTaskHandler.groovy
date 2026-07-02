@@ -99,7 +99,7 @@ class K8sTaskHandler extends TaskHandler implements FusionAwareTask {
         this.errorFile = task.workDir.resolve(TaskRun.CMD_ERRFILE)
         this.exitFile = task.workDir.resolve(TaskRun.CMD_EXIT)
         this.resourceType = executor.k8sConfig.useJobResource() ? ResourceType.Job : ResourceType.Pod
-        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: Duration.of('270sec'))
+        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: Duration.of('270sec'), ExitStatusAwaiter.envSiblings(task))
     }
 
     @TestOnly

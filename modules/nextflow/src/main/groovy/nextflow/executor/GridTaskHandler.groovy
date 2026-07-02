@@ -99,7 +99,7 @@ class GridTaskHandler extends TaskHandler implements FusionAwareTask {
         this.wrapperFile = task.workDir.resolve(TaskRun.CMD_RUN)
         final duration = executor.config.getExitReadTimeout(executor.name)
         this.exitStatusReadTimeoutMillis = duration.toMillis()
-        this.exitAwaiter = new ExitStatusAwaiter(duration)
+        this.exitAwaiter = new ExitStatusAwaiter(duration, ExitStatusAwaiter.envSiblings(task))
         this.queue = task.config?.queue
         this.sanityCheckInterval = duration
     }

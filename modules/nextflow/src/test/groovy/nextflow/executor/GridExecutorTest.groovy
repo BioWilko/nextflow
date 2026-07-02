@@ -57,6 +57,7 @@ class GridExecutorTest extends Specification {
         workDir.resolve(TaskRun.CMD_START).text = 'yes'
         def task = Mock(TaskRun)
         task.getWorkDir() >> workDir
+        task.getOutputs() >> [:]
 
         def executor = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])

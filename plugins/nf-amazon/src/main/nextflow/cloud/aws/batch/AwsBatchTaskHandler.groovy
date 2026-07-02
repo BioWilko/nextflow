@@ -161,7 +161,7 @@ class AwsBatchTaskHandler extends TaskHandler implements BatchHandler<String,Job
         this.exitFile = task.workDir.resolve(TaskRun.CMD_EXIT)
         this.wrapperFile = task.workDir.resolve(TaskRun.CMD_RUN)
         this.traceFile = task.workDir.resolve(TaskRun.CMD_TRACE)
-        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: Duration.of('270sec'))
+        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: Duration.of('270sec'), ExitStatusAwaiter.envSiblings(task))
     }
 
     protected String getJobId() { jobId }

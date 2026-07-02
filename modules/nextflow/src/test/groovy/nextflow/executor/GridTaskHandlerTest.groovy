@@ -85,6 +85,7 @@ class GridTaskHandlerTest extends Specification {
         and:
         def task = Mock(TaskRun) {
             getWorkDir() >> WORK_DIR
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])
@@ -117,6 +118,7 @@ class GridTaskHandlerTest extends Specification {
             getContainerConfig() >> Mock(DockerConfig)
             toTaskBean() >> Mock(TaskBean) { getWorkDir()>>WORK_DIR; getInputFiles()>>[:] }
             getConfig() >> Mock(TaskConfig) { getContainerOptions() >> '--this=that' }
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])
@@ -143,6 +145,7 @@ class GridTaskHandlerTest extends Specification {
             getName() >> 'foo'
             getWorkDir() >> workDir
             getConfig() >> Mock(TaskConfig) { getQueue() >> 'normal' }
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])
@@ -175,6 +178,7 @@ class GridTaskHandlerTest extends Specification {
             getName() >> 'foo'
             getWorkDir() >> workDir
             getConfig() >> Mock(TaskConfig) { getQueue() >> 'normal' }
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])
@@ -201,6 +205,7 @@ class GridTaskHandlerTest extends Specification {
             getName() >> 'foo'
             getWorkDir() >> workDir
             getConfig() >> Mock(TaskConfig) { getQueue() >> 'normal' }
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])
@@ -234,6 +239,7 @@ class GridTaskHandlerTest extends Specification {
             getName() >> 'foo'
             getWorkDir() >> workDir
             getConfig() >> Mock(TaskConfig) { getQueue() >> 'normal' }
+            getOutputs() >> [:]
         }
         def exec = Mock(AbstractGridExecutor) {
             getConfig() >> new ExecutorConfig([:])

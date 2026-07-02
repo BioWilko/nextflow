@@ -140,7 +140,7 @@ class GoogleBatchTaskHandler extends TaskHandler implements FusionAwareTask {
         this.outputFile = task.workDir.resolve(TaskRun.CMD_OUTFILE)
         this.errorFile = task.workDir.resolve(TaskRun.CMD_ERRFILE)
         this.exitFile = task.workDir.resolve(TaskRun.CMD_EXIT)
-        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: nextflow.util.Duration.of('270sec'))
+        this.exitAwaiter = new ExitStatusAwaiter(executor.config?.getExitReadTimeout(executor.name) ?: nextflow.util.Duration.of('270sec'), ExitStatusAwaiter.envSiblings(task))
     }
 
     @TestOnly
