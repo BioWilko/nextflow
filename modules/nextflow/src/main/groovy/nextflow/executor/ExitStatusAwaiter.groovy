@@ -20,6 +20,7 @@ import java.nio.file.Path
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import nextflow.Global
 import nextflow.file.FileHelper
 import nextflow.processor.TaskRun
 import nextflow.script.params.CmdEvalParam
@@ -101,7 +102,18 @@ class ExitStatusAwaiter {
         final exitStatus = readExitFile(exitFile)
         if( exitStatus == null || exitStatus == Integer.MAX_VALUE )
             return exitStatus
-        return checkSiblings(exitStatus)
+        final result = checkSiblings(exitStatus)
+        // Once the exit file and all sentinels are confirmed, flush the head-node's
+        // NFS attribute cache for the work directory so the task finalizer reads
+        // output files with up-to-date sizes rather than stale cached 0-byte views.
+        if( result != null && result != Integer.MAX_VALUE && exitFile )
+            refreshWorkDir(exitFile.parent)
+        return result
+    }
+
+    private void refreshWorkDir(Path workDir) {
+        if( Global.session && FileHelper.workDirIsSharedFS )
+            FileHelper.listDirectory(workDir)
     }
 
     private Integer readExitFile(Path exitFile) {

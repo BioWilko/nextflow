@@ -669,9 +669,8 @@ class BashWrapperBuilder {
     }
 
     String getSyncCmd() {
-        if ( SysEnv.get( 'NXF_ENABLE_FS_SYNC' ) == "true" ) {
+        if( SysEnv.get('NXF_ENABLE_FS_SYNC') == 'true' || (Global.session && FileHelper.workDirIsSharedFS) )
             return 'sync || true'
-        }
         return null
     }
 
